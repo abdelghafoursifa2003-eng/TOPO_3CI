@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Mon premier projet Leaflet</title>
+
+    <link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico" />
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <style>
+        /* Style de la carte */
+        
+        #mapsid {
+            width: 90%;
+            max-width: 700px;
+            height: 700px;
+            margin: auto;
+            border: 2px solid #175643;
+        }
+    </style>
+</head>
+
+<body>
+    <h2 style="text-align:center;">Departement Cartography</h2>
+    <div id="mapsid"></div>
+
+
+    <script>
+        // Initialisation de la carte
+        const mymap = L.map('mapsid').setView([33.976052, -6.866249], 16);
+
+        // Ajout du fond de carte OpenStreetMap
+        L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+            attribution: 'Tiles &copy; Esri — Source: Esri, Maxar, Earthstar Geographics, and the GIS User Community'
+        }).addTo(mymap);
+        const polygon = L.polygon([
+            [33.976675, -6.866591],
+            [33.97660255775197, -6.8666560602713],
+            [33.97655275307109, -6.86658733031636],
+            [33.976466679454475, -6.86665764294863],
+            [33.976411146945516, -6.866637484166827],
+            [33.9762874575206, -6.8667447417508924],
+            [33.97637639330388, -6.86691392787906],
+            [33.97617766518567, -6.86708662447902],
+            [33.976316603279166, -6.867301663322925],
+            [33.97648735395378, -6.867132872876439],
+            [33.9764762631978, -6.8671061288728925],
+            [33.9765760622902, -6.867019012438348],
+            [33.97667214364044, -6.867146605665413],
+            [33.97674150469633, -6.867074549735454],
+            [33.97678711374545, -6.866945547341938],
+            [33.976732995826104, -6.8668585336962495],
+            [33.97680465030189, -6.86679489442789],
+        ]).addTo(mymap).bindPopup('Topography Departement');
+        const Route = L.polyline([
+            [33.97698110147913, -6.867794199851577],
+            [33.97766117551029, -6.86714646095849],
+            [33.97710328467035, -6.866682201729983],
+        ]).addTo(mymap).bindPopup('Topography Departement');
+
+        function onMapClick(e) {
+            popup
+                .setLatLng(e.latlng)
+                .setContent(`You clicked the map at ${e.latlng.toString()}`)
+                .openOn(mymap);
+        }
+
+        mymap.on('click', onMapClick);
+    </script>
+</body>
+
+</html>
